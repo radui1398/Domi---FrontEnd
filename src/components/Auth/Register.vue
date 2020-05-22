@@ -7,30 +7,39 @@
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" id="password" class="form-control" :class="errors.password" placeholder="Password (min.4)" v-model="password">
+        <input type="password" id="password" class="form-control" :class="errors.password" placeholder="Password (min.6)" v-model="password">
       </div>
       <div class="form-group">
         <label for="repeat">Repeat Password</label>
         <input type="password" id="repeat" class="form-control" :class="errors.repeat" placeholder="Repeat Password" v-model="repeat">
       </div>
       <button class="btn btn-black" @click.prevent="register">Register</button>
-      <button class="btn btn-secondary" @click="switchAuth">Login</button>
+      <router-link to="/auth/login"><button class="btn btn-secondary">Login</button></router-link>
     </form>
   </div>
 </template>
 
 <script>
+  import Firebase from 'firebase';
+  import {store} from "../../store/store";
+
   export default {
     methods: {
-      switchAuth(){
-        this.$emit('changeOperation','login');
-      },
       register() {
         if(!this.errors.email && !this.errors.password && !this.errors.repeat) {
-          console.log({
-            email: this.email,
-            password: this.password
-          });
+          const vueInstance = this;
+
+          Firebase.auth().createUserWithEmailAndPassword(this.email, this.password).catch(error => {
+            const errMsg = error.message;
+
+            vueInstance.$notify(errMsg);
+          }).then(user => {
+            if(user){
+              vueInstance.$notify('The user was registered');
+            }
+          })
+        }else{
+          this.$notify('Invalid register.')
         }
       }
     },
@@ -41,11 +50,12 @@
         this.errors.email = (reg.test(this.email))?null:'error';
       },
       password(){
-        this.errors.password = (this.password.length > 4)?null:'error';
+        this.errors.password = (this.password.length > 5)?null:'error';
       },
       repeat(){
         this.errors.repeat = (this.password === this.repeat)?null:'error';
-      }
+      },
+
     },
     data(){
       return {

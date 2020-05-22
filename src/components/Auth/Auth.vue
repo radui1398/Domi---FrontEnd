@@ -5,33 +5,21 @@
     <div id="stars3"></div>
 
     <div class="auth">
-      <r-login v-if="operation == 'login'" @changeOperation="operation = $event"></r-login>
-      <r-register v-else  @changeOperation="operation = $event"></r-register>
+      <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
-  import Login from './Login';
-  import Register from './Register';
 
-  export default {
-    components: {
-      rLogin: Login,
-      rRegister: Register
-    },
-    data(){
-      return {
-        operation: 'login'
-      }
-    }
-  }
 </script>
 
 <style lang="scss">
 
   .auth-container{
-    height: 100%;
+    height: calc(100% + 6px);
+    margin-top: -6px;
+    overflow: hidden;
   }
 
   .auth{
@@ -42,14 +30,12 @@
     background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
 
     &-form{
+      position: relative;
+
       width: 250px;
       height: auto;
 
-      display: flex;
-      justify-content: center;
-      align-items: center;
       padding: 20px;
-
       background-color: white;
 
       form {

@@ -1,38 +1,35 @@
 <template>
   <div id="app">
-    <r-auth></r-auth>
+    <router-view></router-view>
+    <notifications></notifications>
   </div>
 </template>
 
 <script>
-  import Auth from './components/Auth/Auth';
+  import 'bootstrap/dist/css/bootstrap.css'
+  import 'bootstrap-vue/dist/bootstrap-vue.css'
+  import 'vue-search-select/dist/VueSearchSelect.css'
 
   export default {
-    components: {
-      rAuth: Auth,
-    }
-  }
 
+  }
 </script>
 
 <style lang="scss">
-  body,html{
-    min-height: 100%;
-    max-height: 100%;
-    height: 100%;
-  }
-
   body{
     margin: 0;
     font-family: "Lato", sans-serif;
+  }
 
+  html, body {
+    height: 100%;
+  }
+
+  #app {
     display: flex;
     flex-direction: column;
-
-    #app{
-      height: 100%;
-      overflow: hidden;
-    }
+    height: 100%;
+    position: relative;
   }
 
   .btn-black{
@@ -42,6 +39,11 @@
     &:hover{
       color: #fff;
     }
+  }
+
+  .vue-notification-group{
+    top: 20px !important;
+    right: 20px !important;
   }
 
 
