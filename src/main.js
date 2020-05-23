@@ -2,7 +2,8 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Notifications from 'vue-notification';
 import Vuelidate from 'vuelidate'
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import Buefy from 'buefy'
+import 'buefy/dist/buefy.css'
 import App from './App.vue';
 
 
@@ -13,8 +14,9 @@ import {store} from './store/store';
 Vue.use(Notifications);
 Vue.use(VueRouter);
 Vue.use(Vuelidate);
-Vue.use(BootstrapVue);
-Vue.use(IconsPlugin);
+Vue.use(Buefy);
+// Vue.use(BootstrapVue);
+// Vue.use(IconsPlugin);
 
 
 const router = new VueRouter({

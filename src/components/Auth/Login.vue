@@ -24,6 +24,8 @@
   import { validationMixin } from "vuelidate";
   import { required, minLength, email} from 'vuelidate/lib/validators'
 
+
+
   Firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
       store.dispatch('setUser', user);

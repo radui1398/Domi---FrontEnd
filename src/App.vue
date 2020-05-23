@@ -11,7 +11,6 @@
   import 'vue-search-select/dist/VueSearchSelect.css'
 
   export default {
-
   }
 </script>
 

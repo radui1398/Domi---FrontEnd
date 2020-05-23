@@ -1,6 +1,6 @@
 <template>
   <b-container>
-    <div class="menu-panel align-items-center">
+    <div class="menu-panel mt-5 align-items-center">
       <b-input v-model="resource.name" class="resource-title" :state="validateState($v.resource.name)"placeholder="Numele resursei.."></b-input>
 
       <b-form-checkbox class="ml-5" v-model="resource.usable" name="get" switch>Poate fi folosita?</b-form-checkbox>
@@ -98,7 +98,7 @@
     },
     computed: {
       resource(){
-        const resourceId = this.$store.getters.params.rid;
+        const resourceId = this.$store.getters.params.id;
         return this.$store.getters.resource(resourceId);
       }
     },

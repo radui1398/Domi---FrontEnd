@@ -1,7 +1,12 @@
 <template>
   <div>
-    <b-container class="mt-5">
-      <h1>{{ project.name }}</h1>
+    <b-container class="mt-5 project-info">
+      <h1>
+        {{ project.name }}
+        <b-button variant="link" :to="{name: 'editProject'}">
+          <b-icon-gear-fill font-scale="1"></b-icon-gear-fill>
+        </b-button>
+      </h1>
       <p class="text-muted">{{ project.description }}</p>
     </b-container>
 
@@ -36,13 +41,13 @@
             Aceasta resursa protejeaza proiectul.
           </b-card>
         </b-col>
-        <b-col md="4" class="mt-4 h-100" v-for="resource in resources">
+        <b-col md="4" class="mt-4 h-100" v-for="resource in resources" :key="resource.id">
 
           <b-card :title="resource.name">
             <b-card-text class="mb-0">
               {{ resource.description }}
               <div class="d-flex">
-                <b-button :to="{name: 'viewResource', params: {id: $route.params.id, rid: resource.id} }" size="sm"
+                <b-button :to="{name: 'editResource', params: {id: resource.id} }" size="sm"
                           block variant="primary" class="mt-2">
                   Deschide
                 </b-button>
@@ -76,7 +81,6 @@
         }
       },
       resources() {
-        console.log(this.$store.getters.resources);
         return this.$store.getters.resources
       }
     },
@@ -87,18 +91,34 @@
     },
     created() {
       const projectId = this.$store.getters.params.id;
-      if (projectId !== this.$store.getters.currentProject) {
-        this.$store.dispatch('bindResourcesRef', projectId).then(() => {
-          this.loading = false;
-        })
-      }else{
+
+      this.$store.dispatch('bindResourcesRef', projectId).then(() => {
         this.loading = false;
-      }
+      });
     }
   }
 </script>
 
 <style scoped lang="scss">
+  .project-info {
+    h1 {
+      display: flex;
+      align-items: flex-start;
+
+      a {
+        padding: 0;
+        margin-left: 10px;
+        display: none;
+      }
+    }
+
+    &:hover {
+      h1 a {
+        display: inline;
+      }
+    }
+  }
+
   .card-body {
     input {
       border: none;

@@ -10,25 +10,24 @@
   import Header from './Header/Header';
   import Footer from './Footer/Footer';
 
-  export default{
-    data(){
-      return {
-
-      }
+  export default {
+    data() {
+      return {}
     },
     components: {
       vHeader: Header,
       vFooter: Footer
     },
-    created(){
+    created() {
       this.$store.dispatch('bindProjectsRef', this.$store.getters.currentUser)
-    }
+      console.log(this.$store.getters.currentUser.xa);
+    },
 
-}
+  }
 </script>
 
 <style lang="scss">
-  .main{
+  .main {
     height: 100%;
     display: flex;
     flex-direction: column;

@@ -9,6 +9,7 @@ import ViewProject from "./components/Pages/Project/ViewProject";
 import CreateProject from "./components/Pages/Project/CreateProject";
 import CreateResource from "./components/Pages/Resource/CreateResource";
 import ViewResource from "./components/Pages/Resource/ViewResource";
+import EditProject from "./components/Pages/Project/EditProject";
 
 export const routes = [
   {
@@ -31,17 +32,22 @@ export const routes = [
       {
         name: 'viewProject',
         path: '/project/:id',
-        component: ViewProject
+        component: ViewProject,
+      },
+      {
+        name: 'editProject',
+        path: '/project/:id/edit',
+        component: EditProject
+      },
+      {
+        name: 'editResource',
+        path: '/resource/:id/edit',
+        component: ViewResource
       },
       {
         name: 'createResource',
-        path: '/project/:id/resource/create',
+        path: '/project/:id/createResource',
         component: CreateResource
-      },
-      {
-        name: 'viewResource',
-        path: '/project/:id/resource/:rid',
-        component: ViewResource
       },
       {
         path: '/diagram/create',
