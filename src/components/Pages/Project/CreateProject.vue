@@ -53,7 +53,8 @@
           userDefinition: 'User',
           useApiKey: false,
           apiKey: '',
-          user: this.$store.getters.currentUser.uid
+          user: this.$store.getters.currentUser.uid,
+          enabled: false
         }
       }
     },
