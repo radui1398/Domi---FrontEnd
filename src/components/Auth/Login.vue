@@ -1,11 +1,11 @@
 <template>
   <div class="auth-form">
     <b-form-group label="Email">
-      <b-input type="text" placeholder="Email.." :state="validateState($v.email)" v-model="email"></b-input>
+      <b-input type="text" placeholder="Email.." :state="stateOf($v.email)" v-model="email"></b-input>
     </b-form-group>
 
     <b-form-group label="Parola">
-      <b-input type="password" placeholder="Parola.." v-model="password" :state="validateState($v.password)"></b-input>
+      <b-input type="password" placeholder="Parola.." v-model="password" :state="stateOf($v.password)"></b-input>
     </b-form-group>
 
     <b-button variant="primary" @click.prevent="login">
@@ -20,22 +20,13 @@
 
 <script>
   import Firebase from 'firebase';
-  import {store} from '../../store/store';
-  import { validationMixin } from "vuelidate";
-  import { required, minLength, email} from 'vuelidate/lib/validators'
+  import authListener from "../../utils/firebaseAuthStateChange";
+  import validateMixin from "../../mixins/validate.mixins";
 
-
-
-  Firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-      store.dispatch('setUser', user);
-    } else {
-      store.dispatch('setUser', null);
-    }
-  });
+  authListener();
 
   export default {
-    validationMixin,
+    mixins: [validateMixin.login],
     data() {
       return {
         email: '',
@@ -46,50 +37,29 @@
     methods: {
       login() {
         if (!this.$v.$invalid) {
-          const vueInstance = this;
-          this.request = true;
 
           Firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(result => {
             if (result) {
-              vueInstance.$notify('Logged In');
-              vueInstance.$router.push({name: 'home'});
+              this.$notify('Logged In');
+              this.$router.push({name: 'home'});
             }
-            vueInstance.request = false;
+
+            this.request = false;
           }).catch(error => {
             const errMsg = error.message;
 
-            vueInstance.$notify(errMsg);
-            vueInstance.request = false;
+            this.$notify(errMsg);
+            this.request = false;
           });
+
         } else {
           this.$notify('Te rog sa completezi toate campurile.')
         }
-      },
-      validateState(field) {
-        const { $invalid } = field;
-        return !$invalid;
-      },
-    },
-    validations: {
-      email: {
-        required,
-        minLength: minLength(4),
-        email
-      },
-      password: {
-        required,
-        minLength: minLength(6)
       }
     }
-
   }
 </script>
 
-<style lang="scss" scoped>
-  .floating-button-bottom-right{
-    position: fixed;
-    bottom: 20px;
-    right: 30px;
-    z-index: 10;
-  }
+<style>
+
 </style>

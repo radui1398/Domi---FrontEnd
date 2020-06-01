@@ -1,3 +1,5 @@
+<!-- REQ REFACTOR -->
+
 <template>
   <div class="auth-form">
     <form>
@@ -21,7 +23,6 @@
 
 <script>
   import Firebase from 'firebase';
-  import {store} from "../../store/store";
 
   export default {
     methods: {

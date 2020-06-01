@@ -1,9 +1,12 @@
+import {UPDATE_USER} from "../mutations.type";
+import {SET_USER} from "../actions.type";
+
 const state = {
   currentUser: null
 };
 
 const mutations = {
-  userStatus(state, user){
+  [UPDATE_USER](state, user){
     if(user){
       state.currentUser = user;
     }else{
@@ -17,8 +20,8 @@ const getters = {
 };
 
 const actions = {
-  setUser(context, user){
-    context.commit('userStatus', user);
+  [SET_USER](context, user){
+    context.commit(UPDATE_USER, user);
   }
 };
 

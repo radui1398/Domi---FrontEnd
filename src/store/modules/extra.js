@@ -1,21 +1,29 @@
 const state = {
-  params: null,
+  loaded: 0,
+  target: 2
 };
 
 const mutations = {
-  setParams(state, params){
-    state.params = params;
+  changeLoaded(state, number){
+    state.loaded = number;
+  },
+  addOneLoad(state) {
+    state.loaded += 1;
   }
 };
 
 const getters = {
-  params: (state) => state.params
-
+  loaded: (state) => {
+    return state.loaded === state.target;
+  }
 };
 
 const actions = {
-  setParams (context,params){
-    context.commit('setParams', params);
+  setLoaded (context,params){
+    context.commit('changeLoaded', params);
+  },
+  incLoad (context) {
+    context.commit('addOneLoad');
   }
 };
 

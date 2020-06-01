@@ -1,4 +1,4 @@
-export const deleteQueryBatch = (db, query, resolve, reject) => {
+export default (db, query, resolve, reject) => {
   query.get()
     .then((snapshot) => {
       // When there are no documents left, we are done

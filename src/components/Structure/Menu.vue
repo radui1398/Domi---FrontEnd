@@ -18,21 +18,18 @@
 
 <script>
   import Firebase from 'firebase';
+  import {mapGetters} from "vuex";
 
   export default {
     methods: {
       logout(){
-        const vueInstance = this;
-
         Firebase.auth().signOut().then(()=>{
-          vueInstance.$router.push('/auth/login')
+          this.$router.push('/auth/login')
         });
       }
     },
     computed: {
-      currentUser() {
-        return this.$store.getters.currentUser;
-      },
+      ...mapGetters(['currentUser']),
     }
   }
 </script>

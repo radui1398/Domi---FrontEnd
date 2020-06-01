@@ -1,0 +1,57 @@
+.create-resource{
+  .resource-title {
+    width: 20%;
+    border: none;
+    box-shadow: none;
+  }
+
+  .resource-attr {
+    background-color: #f6f6f6;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .new-attr {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: white;
+
+    &:hover {
+      background-color: #f3f3f3;
+    }
+  }
+
+  .resource-list {
+    display: flex;
+    margin: 0 -15px;
+    flex-wrap: wrap;
+
+    .resource-item, .resource-footer {
+      width: calc(20% - 30px);
+      margin: 10px 15px;
+    }
+  }
+
+  .form-control{
+    border: none;
+  }
+
+  .select-valid-false{
+    border-color: rgba(220, 53, 69, 0.20) !important;
+  }
+
+  .description{
+    border: 3px solid #f2f2f2;
+    box-shadow: none;
+  }
+
+
+  #trash{
+    .resource-item{
+      display: none;
+    }
+  }
+}

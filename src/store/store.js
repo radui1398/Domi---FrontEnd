@@ -15,9 +15,9 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
   mutations: {...vuexfireMutations},
   modules: {
+    users,
     projects,
     resources,
-    users,
     extra
   },
   plugins: [

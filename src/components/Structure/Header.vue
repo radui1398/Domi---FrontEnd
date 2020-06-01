@@ -1,7 +1,7 @@
 <template>
     <b-navbar toggleable="lg" type="light" variant="light">
           <b-container>
-            <b-navbar-brand to="/" href="#">Domi</b-navbar-brand>
+            <b-navbar-brand to="/" href="#">{{appName}}</b-navbar-brand>
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -19,15 +19,11 @@
   export default {
     data(){
       return {
-
+        appName: "Domi"
       }
     },
     components: {
-      vMenu: Menu
+      "v-menu": Menu
     }
   }
 </script>
-
-<style lang="scss">
-
-</style>

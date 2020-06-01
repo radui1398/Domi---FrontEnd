@@ -7,7 +7,6 @@ import App from './App.vue';
 
 
 import FirebaseConfig from './firebaseConfig';
-import {routes} from './routes';
 import {store} from './store/store';
 
 Vue.use(Notifications);
@@ -16,23 +15,7 @@ Vue.use(Vuelidate);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
-
-const router = new VueRouter({
-  routes
-});
-
-router.beforeEach((to, from, next) => {
-  if(to.matched.some(record => record.meta.requiresAuth)) {
-    if (store.getters.currentUser) {
-      store.commit('setParams', to.params);
-      next();
-      return
-    }
-    next('/auth/login')
-  } else {
-    next()
-  }
-});
+import router from './router/index';
 
 new Vue({
   el: '#app',

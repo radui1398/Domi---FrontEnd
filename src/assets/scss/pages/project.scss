@@ -1,0 +1,88 @@
+.project{
+  .form-group--error{
+    display: none;
+  }
+
+  .v-input{
+    height: auto;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    padding-left: 1px;
+    border-bottom: 1px solid #1b2735;
+    border-radius: 2px;
+  }
+
+  .form-title{
+    margin-bottom: 50px;
+    input {
+      width: 100%;
+    }
+  }
+
+  .project-name{
+    font-size: 32px;
+    line-height: 36px;
+    border-bottom: none;
+  }
+}
+
+.view-project{
+  .project-info {
+    h1 {
+      display: flex;
+      align-items: flex-start;
+
+      a {
+        padding: 0;
+        margin-left: 10px;
+        display: none;
+      }
+    }
+
+    &:hover {
+      h1 a {
+        display: inline;
+      }
+    }
+  }
+
+  .card-body {
+    input {
+      border: none;
+      padding: 0;
+      box-shadow: none;
+      outline: none;
+
+      &.card-title {
+        font-size: 25px;
+        width: 100%;
+      }
+
+      &.card-text {
+        width: 100%;
+      }
+    }
+
+    .custom-switch {
+      margin-bottom: 5px;
+
+      label {
+        letter-spacing: 1px;
+        color: #6c757d;
+      }
+    }
+  }
+
+  .card {
+    &.selected {
+      box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+    }
+  }
+
+  #trash {
+    .col-md-4 {
+      display: none;
+    }
+  }
+}

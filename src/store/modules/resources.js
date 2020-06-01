@@ -1,20 +1,20 @@
 import {firestoreAction} from "vuexfire";
 import {db} from "../../firebaseConfig";
-import {deleteQueryBatch} from "../util/delete";
+import deleteQueryBatch from "../../utils/deleteQuery";
+import {ADD_RESOURCE, BIND_RESOURCES, DELETE_RESOURCE, SAVE_RESOURCE} from "../actions.type";
+import {REMOVE_RESOURCE, SET_RESOURCE} from "../mutations.type";
 
 const state = {
   resources: []
 };
 
 const mutations = {
-  addResource (state, resource){
-    db.collection("resources").add(resource);
+  [SET_RESOURCE](state, resource) {
   },
-  deleteResource(state, resourceId){
-    db.collection('resources').doc(resourceId).delete();
+  [REMOVE_RESOURCE](state, resourceId) {
   },
-  deleteResourcesFromProject(state, projectId){
-    const readyToBeDeleted = db.collection('resources').where('project','==', projectId);
+  deleteResourcesFromProject(state, projectId) {
+    const readyToBeDeleted = db.collection('resources').where('project', '==', projectId);
 
     return new Promise((resolve, reject) => {
       deleteQueryBatch(db, readyToBeDeleted, resolve, reject);
@@ -23,7 +23,10 @@ const mutations = {
 };
 
 const getters = {
-  resources: state => state.resources,
+  resources: state => (projectId) => state.resources.filter(resource => {
+    if(resource.project === projectId)
+      return resource;
+  }),
   resource: (state) => (resourceId) => {
     return state.resources.find(resource => resource.id === resourceId);
   },
@@ -41,16 +44,31 @@ const getters = {
 };
 
 const actions = {
-  addResource(context, data) {
-    context.commit('addResource', data);
+  [ADD_RESOURCE](context, data) {
+    db.collection("resources").add(data).then(data => {
+      context.commit(SET_RESOURCE, data);
+    });
   },
-  deleteResource(context, params){
-    context.commit('deleteResource', params);
+  [DELETE_RESOURCE](context, params) {
+    db.collection('resources').doc(params).delete().then(data => {
+      context.commit(REMOVE_RESOURCE, params);
+    });
   },
-  bindResourcesRef: firestoreAction((context,projectId) => {
+  [SAVE_RESOURCE](context, params) {
+    db.collection("resources").doc(params.id).update(params).then(data => {
+      return true
+    }).catch(error => {
+      return error;
+    })
+  },
+  [BIND_RESOURCES]: firestoreAction((context, projects) => {
+    const ids = projects.map(project => {
+      return project.id
+    });
+
     return context
       .bindFirestoreRef('resources', db.collection('resources')
-        .where('project', '==', projectId))
+        .where('project', 'in', ids));
   }),
 };
 
